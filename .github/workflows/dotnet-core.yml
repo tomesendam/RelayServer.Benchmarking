@@ -18,7 +18,7 @@ jobs:
       with:
         dotnet-version: 5.0.100
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore RoccoServe.SocketServer.sln
     - name: Build
       run: dotnet build RoccoServe.SocketServer.sln --configuration Release --no-restore
    
