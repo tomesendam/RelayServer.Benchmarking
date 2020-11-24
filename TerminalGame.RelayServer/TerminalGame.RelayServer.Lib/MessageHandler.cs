@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 using TerminalGame.RelayServer.Domain;
 
-namespace TerminalGame.RelayServer.Benchmark
+namespace TerminalGame.RelayServer.Lib
 {
-    public class MessageHandlerWithoutYield
+    public class MessageHandler
     {
-        private long TotalRead { get; set; } = 0;
-        private long CurrentRead { get; set; } = 0;
         private bool MessageIncomplete { get; set; }
-        private int MessageSize { get; set; } = 0;
-
         private string AccumulateMessage { get; set; } = "";
 
-        
+
         public IEnumerable<SocketMessage?> DecodeBuffer(byte[] buffer, long offset, long size)
         {
             AccumulateMessage += Encoding.UTF8.GetString(buffer, (int) offset, (int) size);
