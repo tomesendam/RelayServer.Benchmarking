@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Linq;
 using System.Text;
 using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Diagnosers;
-using BenchmarkDotNet.Diagnostics.Windows.Configs;
 using BenchmarkDotNet.Engines;
 using BenchmarkDotNet.Running;
-using TerminalGame.RelayServer.Domain;
+using TerminalGame.RelayServer.Lib;
 
 namespace TerminalGame.RelayServer.Benchmark
 {
@@ -37,8 +32,11 @@ namespace TerminalGame.RelayServer.Benchmark
         }
 
         private SpanMessageHandler SpanMessageHandler { get; }
+
         private MessageHandler MessageHandler { get; }
+        
         private MessageHandlerWithoutYield MessageHandlerWithoutYield { get; }
+        
         private readonly byte[] _messageToDecode;
         
         private readonly Consumer _consumer = new();
@@ -46,7 +44,6 @@ namespace TerminalGame.RelayServer.Benchmark
         [Benchmark]
         public void Span()
         {
-            
             SpanMessageHandler.DecodeBuffer(_messageToDecode, 0, 9823).ToList();
         }
 

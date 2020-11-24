@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TerminalGame.RelayServer.Domain\TerminalGame.RelayServer.Domain.csproj" />
+    <ProjectReference Include="..\TerminalGame.RelayServer.Lib\TerminalGame.RelayServer.Lib.csproj" />
   </ItemGroup>
 
 </Project>
