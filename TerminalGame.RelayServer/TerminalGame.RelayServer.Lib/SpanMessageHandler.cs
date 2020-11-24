@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json;
 using TerminalGame.RelayServer.Domain;
 
-namespace TerminalGame.RelayServer.Benchmark
+namespace TerminalGame.RelayServer.Lib
 {
     public class SpanMessageHandler
     {
