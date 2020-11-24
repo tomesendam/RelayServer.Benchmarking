@@ -4,12 +4,16 @@ namespace TerminalGame.RelayServer.Domain
 {
     public record SocketMessage
     {
-        [JsonPropertyName("destination")] public string? Destination { get; init; }
+        [JsonPropertyName("destination")]
+        public string? Destination { get; init; }
 
-        [JsonPropertyName("source")] public string? Source { get; init; }
+        [JsonPropertyName("source")]
+        public string? Source { get; init; }
 
-        [JsonPropertyName("payload")] public string? Payload { get; set; }
+        [JsonPropertyName("payload")]
+        public string? Payload { get; set; }
 
-        [JsonPropertyName("payloadType")] public SocketPayloadType PayloadType { get; init; }
+        [JsonPropertyName("payloadType")]
+        public SocketPayloadType PayloadType { get; init; }
     }
 }
