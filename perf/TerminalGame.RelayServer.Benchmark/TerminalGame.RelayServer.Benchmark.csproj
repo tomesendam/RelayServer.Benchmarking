@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,8 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TerminalGame.RelayServer.Domain\TerminalGame.RelayServer.Domain.csproj" />
-    <ProjectReference Include="..\TerminalGame.RelayServer.Lib\TerminalGame.RelayServer.Lib.csproj" />
+    <ProjectReference Include="..\..\src\TerminalGame.RelayServer.Handlers\TerminalGame.RelayServer.Handlers.csproj" />
   </ItemGroup>
 
 </Project>

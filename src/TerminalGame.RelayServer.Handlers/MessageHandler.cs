@@ -4,7 +4,7 @@ using System.Text;
 using System.Text.Json;
 using TerminalGame.RelayServer.Domain;
 
-namespace TerminalGame.RelayServer.Lib
+namespace TerminalGame.RelayServer.Handlers
 {
     public class MessageHandler
     {
