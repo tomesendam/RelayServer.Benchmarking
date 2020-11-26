@@ -16,13 +16,13 @@ namespace TerminalGame.RelayServer.WithBedrock
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureServices(services =>
+                .ConfigureLogging((hostContext, loggingBuilder) =>
                 {
-                    services.AddLogging(builder =>
+                    if (hostContext.HostingEnvironment.IsDevelopment())
                     {
-                        builder.SetMinimumLevel(LogLevel.Debug);
-                        builder.AddConsole();
-                    });
+                        loggingBuilder.SetMinimumLevel(LogLevel.Debug);
+                        loggingBuilder.AddDebug();
+                    }
                 })
                 .ConfigureServer(serverBuilder =>
                 {
@@ -34,6 +34,7 @@ namespace TerminalGame.RelayServer.WithBedrock
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
+                    services.AddHostedService<ClientWorker>();
                 });
     }
 }

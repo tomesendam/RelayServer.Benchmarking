@@ -19,7 +19,7 @@ namespace TerminalGame.RelayServer.WithBedrock
             // Use a length prefixed protocol
             var protocol = new LengthPrefixedProtocol();
             var reader = connection.CreateReader();
-            var writer = connection.CreateWriter();
+            //var writer = connection.CreateWriter();
 
             while (true)
             {
@@ -34,8 +34,7 @@ namespace TerminalGame.RelayServer.WithBedrock
                     {
                         break;
                     }
-
-                    await writer.WriteAsync(protocol, message);
+                    //await writer.WriteAsync(protocol, message);
                 }
                 finally
                 {
