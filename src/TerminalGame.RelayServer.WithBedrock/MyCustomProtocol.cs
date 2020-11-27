@@ -30,8 +30,10 @@ namespace TerminalGame.RelayServer.WithBedrock
                     var result = await reader.ReadAsync(protocol);
                     var message = result.Message;
 
-                    if(message is PayloadMessage payloadMessage )
-                    _logger.LogInformation("Received a message of {Length} bytes", payloadMessage.Payload.Length);
+                    if (message is PayloadMessage payloadMessage)
+                    {
+                        _logger.LogInformation("Received a {MessageType} with an inner payload of {Length} bytes", typeof(PayloadMessage).Name, payloadMessage.Payload.Length);
+                    }
 
                     if (result.IsCompleted)
                     {

@@ -40,17 +40,22 @@ namespace TerminalGame.RelayServer.WithBedrock
             }
 
             var protocol = new MyClientProtocol(_connection);
-            await protocol.SendAsync(new InitMessage("1"), _hostApplicationLifetime.ApplicationStopping);
-            await protocol.SendAsync(new PayloadMessage("1", "0", "Payload0"), _hostApplicationLifetime.ApplicationStopping);
-            await protocol.SendAsync(new PayloadMessage("1", "0", "Payload1"), _hostApplicationLifetime.ApplicationStopping);
-            await protocol.SendAsync(new PayloadMessage("1", "0", "Payload2"), _hostApplicationLifetime.ApplicationStopping);
-            await protocol.SendAsync(new PayloadMessage("1", "0", "Payload3"), _hostApplicationLifetime.ApplicationStopping);
-            await protocol.SendAsync(new PayloadMessage("1", "0", "Payload4"), _hostApplicationLifetime.ApplicationStopping);
-            await protocol.SendAsync(new PayloadMessage("1", "0", "Payload5"), _hostApplicationLifetime.ApplicationStopping);
-            await protocol.SendAsync(new PayloadMessage("1", "0", "Payload6"), _hostApplicationLifetime.ApplicationStopping);
-            await protocol.SendAsync(new PayloadMessage("1", "0", "Payload7"), _hostApplicationLifetime.ApplicationStopping);
-            await protocol.SendAsync(new PayloadMessage("1", "0", "Payload8"), _hostApplicationLifetime.ApplicationStopping);
-            await protocol.SendAsync(new PayloadMessage("1", "0", "Payload9"), _hostApplicationLifetime.ApplicationStopping);
+            while (!_hostApplicationLifetime.ApplicationStopping.IsCancellationRequested)
+            {
+                await protocol.SendAsync(new InitMessage("1"), _hostApplicationLifetime.ApplicationStopping);
+                await protocol.SendAsync(new PayloadMessage("1", "0", "Payload0"), _hostApplicationLifetime.ApplicationStopping);
+                await protocol.SendAsync(new PayloadMessage("1", "0", "Payload1"), _hostApplicationLifetime.ApplicationStopping);
+                await protocol.SendAsync(new PayloadMessage("1", "0", "Payload2"), _hostApplicationLifetime.ApplicationStopping);
+                await protocol.SendAsync(new PayloadMessage("1", "0", "Payload3"), _hostApplicationLifetime.ApplicationStopping);
+                await protocol.SendAsync(new PayloadMessage("1", "0", "Payload4"), _hostApplicationLifetime.ApplicationStopping);
+                await protocol.SendAsync(new PayloadMessage("1", "0", "Payload5"), _hostApplicationLifetime.ApplicationStopping);
+                await protocol.SendAsync(new PayloadMessage("1", "0", "Payload6"), _hostApplicationLifetime.ApplicationStopping);
+                await protocol.SendAsync(new PayloadMessage("1", "0", "Payload7"), _hostApplicationLifetime.ApplicationStopping);
+                await protocol.SendAsync(new PayloadMessage("1", "0", "Payload8"), _hostApplicationLifetime.ApplicationStopping);
+                await protocol.SendAsync(new PayloadMessage("1", "0", "Payload9"), _hostApplicationLifetime.ApplicationStopping);
+
+                Thread.Sleep(100);
+            }
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)
