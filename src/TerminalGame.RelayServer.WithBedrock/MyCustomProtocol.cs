@@ -2,16 +2,19 @@
 using Microsoft.AspNetCore.Connections;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
 
 namespace TerminalGame.RelayServer.WithBedrock
 {
     public class MyCustomProtocol : ConnectionHandler
     {
         private readonly ILogger _logger;
+        private readonly IHostApplicationLifetime _hostApplicationLifetime;
 
-        public MyCustomProtocol(ILogger<MyCustomProtocol> logger)
+        public MyCustomProtocol(ILogger<MyCustomProtocol> logger, IHostApplicationLifetime hostApplicationLifetime)
         {
             _logger = logger;
+            _hostApplicationLifetime = hostApplicationLifetime;
         }
 
         public override async Task OnConnectedAsync(ConnectionContext connection)
@@ -20,7 +23,7 @@ namespace TerminalGame.RelayServer.WithBedrock
             var protocol = new MyRequestMessageReader();
             var reader = connection.CreateReader();
 
-            while (true)
+            while (!_hostApplicationLifetime.ApplicationStopping.IsCancellationRequested)
             {
                 try
                 {
