@@ -21,7 +21,6 @@ namespace TerminalGame.RelayServer.WithBedrock
                     if (hostContext.HostingEnvironment.IsDevelopment())
                     {
                         loggingBuilder.SetMinimumLevel(LogLevel.Debug);
-                        loggingBuilder.AddDebug();
                     }
                 })
                 .ConfigureServer(serverBuilder =>

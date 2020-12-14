@@ -19,12 +19,12 @@ namespace TerminalGame.RelayServer.WithBedrock
             _messageWriter = new MyRequestMessageWriter();
         }
 
-        public async ValueTask SendAsync(MyRequestMessage requestMessage, CancellationToken cancellationToken = default)
+        public async ValueTask SendAsync(MyRequestMessage requestMessage, CancellationToken cancellationToken)
         {
             // Write request message length
             _messageWriter.WriteMessage(requestMessage, _connection.Transport.Output);
 
-            await _connection.Transport.Output.FlushAsync(cancellationToken).ConfigureAwait(false);
+            await _connection.Transport.Output.FlushAsync(cancellationToken);
         }
     }
 }
