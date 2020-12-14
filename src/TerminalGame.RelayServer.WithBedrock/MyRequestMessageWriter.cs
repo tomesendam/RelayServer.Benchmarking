@@ -58,6 +58,7 @@ namespace TerminalGame.RelayServer.WithBedrock
                 ReusableUtf8JsonWriter.Return(reusableWriter);
             }
         }
+
         private static void WriteInitMessage(InitMessage message, Utf8JsonWriter writer)
         {
             WritePayloadType(message, writer);
@@ -72,10 +73,10 @@ namespace TerminalGame.RelayServer.WithBedrock
             WritePayload(message, writer);
         }
 
-        private const string PayloadTypePropertyName = "payloadType";
-        private static readonly JsonEncodedText PayloadTypePropertyNameBytes = JsonEncodedText.Encode(PayloadTypePropertyName);
-        private static readonly JsonEncodedText PayloadTypeInitPropertyValue = JsonEncodedText.Encode("INIT");
-        private static readonly JsonEncodedText PayloadTypePayloadPropertyValue = JsonEncodedText.Encode("MESSAGE");
+        public const string PayloadTypePropertyName = "payloadType";
+        public static readonly JsonEncodedText PayloadTypePropertyNameBytes = JsonEncodedText.Encode(PayloadTypePropertyName);
+        public static readonly JsonEncodedText PayloadTypeInitPropertyValue = JsonEncodedText.Encode("INIT");
+        public static readonly JsonEncodedText PayloadTypePayloadPropertyValue = JsonEncodedText.Encode("MESSAGE");
         private static void WritePayloadType(MyRequestMessage message, Utf8JsonWriter writer)
         {
             var payloadType = message.PayloadType switch
@@ -88,22 +89,22 @@ namespace TerminalGame.RelayServer.WithBedrock
             writer.WriteString(PayloadTypePropertyNameBytes, payloadType);
         }
 
-        private const string SourcePropertyName = "source";
-        private static readonly JsonEncodedText SourcePropertyNameBytes = JsonEncodedText.Encode(SourcePropertyName);
+        public const string SourcePropertyName = "source";
+        public static readonly JsonEncodedText SourcePropertyNameBytes = JsonEncodedText.Encode(SourcePropertyName);
         private static void WriteSource(MyRequestMessage message, Utf8JsonWriter writer)
         {
             writer.WriteString(SourcePropertyNameBytes, message.Source);
         }
 
-        private const string DestinationPropertyName = "destination";
-        private static readonly JsonEncodedText DestinationPropertyNameBytes = JsonEncodedText.Encode(DestinationPropertyName);
+        public const string DestinationPropertyName = "destination";
+        public static readonly JsonEncodedText DestinationPropertyNameBytes = JsonEncodedText.Encode(DestinationPropertyName);
         private static void WriteDestination(PayloadMessage message, Utf8JsonWriter writer)
         {
             writer.WriteString(DestinationPropertyNameBytes, message.Destination);
         }
 
-        private const string PayloadPropertyName = "payload";
-        private static readonly JsonEncodedText PayloadPropertyNameBytes = JsonEncodedText.Encode(PayloadPropertyName);
+        public const string PayloadPropertyName = "payload";
+        public static readonly JsonEncodedText PayloadPropertyNameBytes = JsonEncodedText.Encode(PayloadPropertyName);
         private static void WritePayload(PayloadMessage message, Utf8JsonWriter writer)
         {
             writer.WriteString(PayloadPropertyNameBytes, message.Payload);
