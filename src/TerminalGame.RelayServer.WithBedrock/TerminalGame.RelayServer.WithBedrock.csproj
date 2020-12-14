@@ -25,4 +25,8 @@
     <PackageReference Include="Bedrock.Framework.Experimental" Version="*-*" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TerminalGame.RelayServer.Domain\TerminalGame.RelayServer.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
