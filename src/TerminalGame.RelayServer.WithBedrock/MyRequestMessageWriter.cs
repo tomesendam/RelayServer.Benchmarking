@@ -18,9 +18,7 @@ namespace TerminalGame.RelayServer.WithBedrock
 
         private static void WriteHeaders(MyRequestMessage message, IBufferWriter<byte> stream)
         {
-            // HACK : Send an arbitrary number right now because all message have that size during test
-            var size = message is InitMessage ? 35 : 77;
-            // HACK
+            var size = MyRequestMessageExtensions.GetMessageLength(message);
 
             var sizeSpan = stream.GetSpan(4);
             BinaryPrimitives.WriteInt32BigEndian(sizeSpan, size);
@@ -75,8 +73,8 @@ namespace TerminalGame.RelayServer.WithBedrock
 
         public const string PayloadTypePropertyName = "payloadType";
         public static readonly JsonEncodedText PayloadTypePropertyNameBytes = JsonEncodedText.Encode(PayloadTypePropertyName);
-        public static readonly JsonEncodedText PayloadTypeInitPropertyValue = JsonEncodedText.Encode("INIT");
-        public static readonly JsonEncodedText PayloadTypePayloadPropertyValue = JsonEncodedText.Encode("MESSAGE");
+        public static readonly JsonEncodedText PayloadTypeInitPropertyValue = JsonEncodedText.Encode(MyPayloadTypeStrings.Init);
+        public static readonly JsonEncodedText PayloadTypePayloadPropertyValue = JsonEncodedText.Encode(MyPayloadTypeStrings.Payload);
         private static void WritePayloadType(MyRequestMessage message, Utf8JsonWriter writer)
         {
             var payloadType = message.PayloadType switch
