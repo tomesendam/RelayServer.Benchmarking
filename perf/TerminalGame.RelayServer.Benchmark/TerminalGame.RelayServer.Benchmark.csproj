@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\TerminalGame.RelayServer.Handlers\TerminalGame.RelayServer.Handlers.csproj" />
+    <ProjectReference Include="..\..\src\TerminalGame.RelayServer.WithBedrock\TerminalGame.RelayServer.WithBedrock.csproj" />
   </ItemGroup>
 
 </Project>
