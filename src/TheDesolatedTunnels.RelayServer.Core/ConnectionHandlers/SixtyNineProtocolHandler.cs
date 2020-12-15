@@ -34,7 +34,6 @@ namespace TheDesolatedTunnels.RelayServer.Core.ConnectionHandlers
             var protocol = new SixtyNineReader();
             var reader = connection.CreateReader();
 
-            var sent = 0;
 
 
             while (!connection.ConnectionClosed.IsCancellationRequested)
@@ -52,17 +51,12 @@ namespace TheDesolatedTunnels.RelayServer.Core.ConnectionHandlers
                         CloseMessage => _messageHandler.HandleCloseMessage(connection),
                         ErrorMessage x => x,
                         PayloadMessage x => x,
-                        _ => Kek(connection, message)
+                        _ => new ErrorMessage(connection.ConnectionId, "Invalid type")
                     };
 
-                    switch (returnMessage)
+                    if (returnMessage == null)
                     {
-                        case null:
-                            continue;
-                        case PayloadMessage kek:
-                            sent++;
-                            _logger.LogInformation($"Payload {kek.Payload} Destination {kek.Destination}");
-                            break;
+                        continue;
                     }
 
                     try
@@ -84,14 +78,10 @@ namespace TheDesolatedTunnels.RelayServer.Core.ConnectionHandlers
                 }
             }
             
-            _logger.LogInformation($"Disconnected: {connection.ConnectionId} and sent: {sent}");
+            _logger.LogInformation($"Disconnected: {connection.ConnectionId}");
             _connectionStore.Remove(connection);
         }
 
-        public ErrorMessage Kek(ConnectionContext connection,SixtyNineMessage message)
-        {
-            _logger.LogError(message.PayloadType.ToString());
-            return new ErrorMessage(connection.ConnectionId, "Invalid type");
-        }
+        
     }
 }
