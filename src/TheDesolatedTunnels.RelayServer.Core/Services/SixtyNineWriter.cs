@@ -35,7 +35,7 @@ namespace TheDesolatedTunnels.RelayServer.Core.Services
 
             var sizeSpan = stream.GetSpan(4);
             BinaryPrimitives.WriteInt32BigEndian(sizeSpan, size);
-            stream.Write(sizeSpan[..4]);
+            stream.Advance(4);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveOptimization)]

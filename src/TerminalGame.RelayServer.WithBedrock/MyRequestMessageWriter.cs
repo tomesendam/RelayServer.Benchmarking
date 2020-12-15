@@ -22,7 +22,7 @@ namespace TerminalGame.RelayServer.WithBedrock
 
             var sizeSpan = stream.GetSpan(4);
             BinaryPrimitives.WriteInt32BigEndian(sizeSpan, size);
-            stream.Write(sizeSpan[..4]);
+            stream.Advance(4);
         }
 
         private static void WriteContent(MyRequestMessage message, IBufferWriter<byte> stream)
