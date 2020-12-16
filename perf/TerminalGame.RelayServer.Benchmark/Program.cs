@@ -21,6 +21,7 @@ namespace TerminalGame.RelayServer.Benchmark
             messageHandler = new MessageHandler();
             spanMessageHandler = new SpanMessageHandler();
             messageHandlerWithoutYield = new MessageHandlerWithoutYield();
+            _newProtocolByteArrayMessageHandler = new NewProtocolByteArrayMessageHandler();
             messageToDecode = Encoding.UTF8.GetBytes(
                 "{[35][{\"payloadType\":\"INIT\",\"source\":\"1\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload0\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload1\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload2\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload3\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload4\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload5\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload6\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload7\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload8\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload9\"}]}"
                 + "{[35][{\"payloadType\":\"INIT\",\"source\":\"1\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload0\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload1\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload2\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload3\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload4\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload5\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload6\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload7\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload8\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload9\"}]}"
@@ -39,6 +40,7 @@ namespace TerminalGame.RelayServer.Benchmark
         private SpanMessageHandler spanMessageHandler = default!;
         private MessageHandler messageHandler = default!;
         private MessageHandlerWithoutYield messageHandlerWithoutYield = default!;
+        private NewProtocolByteArrayMessageHandler _newProtocolByteArrayMessageHandler = default!;
         private byte[] messageToDecode = default!;
 
         private MyRequestMessageReader messageReader = new MyRequestMessageReader();
@@ -189,6 +191,12 @@ namespace TerminalGame.RelayServer.Benchmark
         // {
         //    messageHandlerWithoutYield.DecodeBuffer(messageToDecode, 0, 893).ToList();
         // }
+
+        [Benchmark]
+        public void New_Protocol_Array_Message_handler()
+        {
+            _newProtocolByteArrayMessageHandler.DecodeBuffer(lotsOfMessage,0,lotsOfMessage.Length).ToList();
+        }
 
         [Benchmark]
         public void ONLY_ONE_Init_Record()
