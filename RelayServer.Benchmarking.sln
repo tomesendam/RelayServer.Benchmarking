@@ -32,6 +32,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheDesolatedTunnels.RelaySe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheDesolatedTunnels.RelayServer.Core.Interfaces", "src\TheDesolatedTunnels.RelayServer.Core.Interfaces\TheDesolatedTunnels.RelayServer.Core.Interfaces.csproj", "{D807D625-5946-4E66-9304-FF357EE1AC39}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{4D962F7A-A184-4F5B-A2B6-9FD30567389E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheDesolatedTunnels.RelayServer.Core.Tests", "src\TheDesolatedTunnels.RelayServer.Core.Tests\TheDesolatedTunnels.RelayServer.Core.Tests.csproj", "{15A499D9-5B96-4ACA-8769-0A084A198D11}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -138,6 +142,18 @@ Global
 		{D807D625-5946-4E66-9304-FF357EE1AC39}.Release|x64.Build.0 = Release|Any CPU
 		{D807D625-5946-4E66-9304-FF357EE1AC39}.Release|x86.ActiveCfg = Release|Any CPU
 		{D807D625-5946-4E66-9304-FF357EE1AC39}.Release|x86.Build.0 = Release|Any CPU
+		{15A499D9-5B96-4ACA-8769-0A084A198D11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15A499D9-5B96-4ACA-8769-0A084A198D11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15A499D9-5B96-4ACA-8769-0A084A198D11}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{15A499D9-5B96-4ACA-8769-0A084A198D11}.Debug|x64.Build.0 = Debug|Any CPU
+		{15A499D9-5B96-4ACA-8769-0A084A198D11}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{15A499D9-5B96-4ACA-8769-0A084A198D11}.Debug|x86.Build.0 = Debug|Any CPU
+		{15A499D9-5B96-4ACA-8769-0A084A198D11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15A499D9-5B96-4ACA-8769-0A084A198D11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15A499D9-5B96-4ACA-8769-0A084A198D11}.Release|x64.ActiveCfg = Release|Any CPU
+		{15A499D9-5B96-4ACA-8769-0A084A198D11}.Release|x64.Build.0 = Release|Any CPU
+		{15A499D9-5B96-4ACA-8769-0A084A198D11}.Release|x86.ActiveCfg = Release|Any CPU
+		{15A499D9-5B96-4ACA-8769-0A084A198D11}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -151,6 +167,7 @@ Global
 		{D97DAF2A-EA17-45CD-B6A2-A21A7DFA5BD1} = {0C84E717-8438-4B3F-BF0C-F715F4564913}
 		{F8E183F3-BB48-447F-95A9-5DF6B60CFF65} = {0C84E717-8438-4B3F-BF0C-F715F4564913}
 		{D807D625-5946-4E66-9304-FF357EE1AC39} = {0C84E717-8438-4B3F-BF0C-F715F4564913}
+		{15A499D9-5B96-4ACA-8769-0A084A198D11} = {4D962F7A-A184-4F5B-A2B6-9FD30567389E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AB98C665-1ED7-4D41-851F-B3FC46CE6EBE}

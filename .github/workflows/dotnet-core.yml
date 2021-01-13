@@ -21,3 +21,4 @@ jobs:
 
     - name: Build
       run: dotnet build RelayServer.Benchmarking.sln --configuration Release
+      run: dotnet test --no-build --configuration Release

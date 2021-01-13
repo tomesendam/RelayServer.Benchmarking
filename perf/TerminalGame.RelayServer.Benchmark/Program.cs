@@ -11,8 +11,6 @@ using TerminalGame.RelayServer.WithBedrock;
 namespace TerminalGame.RelayServer.Benchmark
 {
     [MemoryDiagnoser]
-    [IterationCount(20)]
-    [InvocationCount(20)]
     public class SpanVsString
     {
         [GlobalSetup]
@@ -175,54 +173,18 @@ namespace TerminalGame.RelayServer.Benchmark
         };
 
         [Benchmark]
-        public void Span()
+        public void Old_Protocol_Handler()
         {
             spanMessageHandler.DecodeBuffer(messageToDecode, 0, 9823).ToList();
         }
 
-        [Benchmark]
-        public void String()
-        {
-            messageHandler.DecodeBuffer(messageToDecode, 0, 9823).ToList();
-        }
-
-        // [Benchmark]
-        // public void StringWithoutYield()
-        // {
-        //    messageHandlerWithoutYield.DecodeBuffer(messageToDecode, 0, 893).ToList();
-        // }
-
+       
         [Benchmark]
         public void New_Protocol_Array_Message_handler()
         {
             _newProtocolByteArrayMessageHandler.DecodeBuffer(lotsOfMessage,0,lotsOfMessage.Length).ToList();
         }
 
-        [Benchmark]
-        public void ONLY_ONE_Init_Record()
-        {
-            var initSequence = new ReadOnlySequence<byte>(initMessage);
-            var initConsumed = new SequencePosition(initSequence, 0);
-            var initExamined = new SequencePosition(initSequence, 0);
-
-            while (messageReader.TryParseMessage(in initSequence, ref initConsumed, ref initExamined, out var _))
-            {
-                initSequence = initSequence.Slice(initConsumed);
-            }
-        }
-
-        [Benchmark]
-        public void ONLY_ONE_Payload_Record()
-        {
-            var payloadSequence = new ReadOnlySequence<byte>(payloadMessage);
-            var payloadConsumed = new SequencePosition(payloadSequence, 0);
-            var payloadExamined = new SequencePosition(payloadSequence, 0);
-
-            while (messageReader.TryParseMessage(in payloadSequence, ref payloadConsumed, ref payloadExamined, out var _))
-            {
-                payloadSequence = payloadSequence.Slice(payloadConsumed);
-            }
-        }
 
         [Benchmark]
         public void Hundred_Messages_Record()
