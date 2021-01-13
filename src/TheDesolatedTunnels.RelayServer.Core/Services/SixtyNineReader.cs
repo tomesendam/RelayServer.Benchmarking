@@ -37,12 +37,6 @@ namespace TheDesolatedTunnels.RelayServer.Core.Services
     
     
     {
-        private readonly ILogger<SixtyNineReader> _logger;
-
-        public SixtyNineReader(ILogger<SixtyNineReader> logger)
-        {
-            _logger = logger;
-        }
 
         /// <summary>
         ///     Tries the parse message.

@@ -7,6 +7,7 @@ using BenchmarkDotNet.Diagnosers;
 using BenchmarkDotNet.Running;
 using TerminalGame.RelayServer.Handlers;
 using TerminalGame.RelayServer.WithBedrock;
+using TheDesolatedTunnels.RelayServer.Core.Services;
 
 namespace TerminalGame.RelayServer.Benchmark
 {
@@ -16,9 +17,7 @@ namespace TerminalGame.RelayServer.Benchmark
         [GlobalSetup]
         public void GlobalSetup()
         {
-            messageHandler = new MessageHandler();
             spanMessageHandler = new SpanMessageHandler();
-            messageHandlerWithoutYield = new MessageHandlerWithoutYield();
             _newProtocolByteArrayMessageHandler = new NewProtocolByteArrayMessageHandler();
             messageToDecode = Encoding.UTF8.GetBytes(
                 "{[35][{\"payloadType\":\"INIT\",\"source\":\"1\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload0\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload1\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload2\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload3\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload4\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload5\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload6\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload7\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload8\"}]}{[77][{\"payloadType\":\"MESSAGE\",\"destination\":\"0\",\"source\":\"1\",\"payload\":\"Payload9\"}]}"
@@ -36,12 +35,11 @@ namespace TerminalGame.RelayServer.Benchmark
         }
 
         private SpanMessageHandler spanMessageHandler = default!;
-        private MessageHandler messageHandler = default!;
-        private MessageHandlerWithoutYield messageHandlerWithoutYield = default!;
         private NewProtocolByteArrayMessageHandler _newProtocolByteArrayMessageHandler = default!;
         private byte[] messageToDecode = default!;
 
         private MyRequestMessageReader messageReader = new MyRequestMessageReader();
+        private SixtyNineReader _sixtyNineReader = new();
 
         private byte[] initMessage = new byte[] { 0x00, 0x00, 0x00, 0x23, 0x7B, 0x22, 0x70, 0x61, 0x79, 0x6C, 0x6F, 0x61, 0x64, 0x54, 0x79, 0x70, 0x65, 0x22, 0x3A, 0x22, 0x49, 0x4E, 0x49, 0x54, 0x22, 0x2C, 0x22, 0x73, 0x6F, 0x75, 0x72, 0x63, 0x65, 0x22, 0x3A, 0x22, 0x31, 0x22, 0x7D };
         private byte[] payloadMessage = new byte[] { 0x00, 0x00, 0x00, 0x4D, 0x7B, 0x22, 0x70, 0x61, 0x79, 0x6C, 0x6F, 0x61, 0x64, 0x54, 0x79, 0x70, 0x65, 0x22, 0x3A, 0x22, 0x4D, 0x45, 0x53, 0x53, 0x41, 0x47, 0x45, 0x22, 0x2C, 0x22, 0x73, 0x6F, 0x75, 0x72, 0x63, 0x65, 0x22, 0x3A, 0x22, 0x31, 0x22, 0x2C, 0x22, 0x64, 0x65, 0x73, 0x74, 0x69, 0x6E, 0x61, 0x74, 0x69, 0x6F, 0x6E, 0x22, 0x3A, 0x22, 0x30, 0x22, 0x2C, 0x22, 0x70, 0x61, 0x79, 0x6C, 0x6F, 0x61, 0x64, 0x22, 0x3A, 0x22, 0x50, 0x61, 0x79, 0x6C, 0x6F, 0x61, 0x64, 0x30, 0x22, 0x7D };
@@ -187,13 +185,26 @@ namespace TerminalGame.RelayServer.Benchmark
 
 
         [Benchmark]
-        public void Hundred_Messages_Record()
+        public void V1_Hundred_Messages_Record()
         {
             var lotsOfMessageSequence = new ReadOnlySequence<byte>(lotsOfMessage);
             var lotsOfMessageConsumed = new SequencePosition(lotsOfMessageSequence, 0);
             var lotsOfMessageExamined = new SequencePosition(lotsOfMessageSequence, 0);
 
             while (messageReader.TryParseMessage(in lotsOfMessageSequence, ref lotsOfMessageConsumed, ref lotsOfMessageExamined, out var _))
+            {
+                lotsOfMessageSequence = lotsOfMessageSequence.Slice(lotsOfMessageConsumed);
+            }
+        }
+        
+        [Benchmark]
+        public void V2_Hundred_Messages_Record()
+        {
+            var lotsOfMessageSequence = new ReadOnlySequence<byte>(lotsOfMessage);
+            var lotsOfMessageConsumed = new SequencePosition(lotsOfMessageSequence, 0);
+            var lotsOfMessageExamined = new SequencePosition(lotsOfMessageSequence, 0);
+
+            while (_sixtyNineReader.TryParseMessage(in lotsOfMessageSequence, ref lotsOfMessageConsumed, ref lotsOfMessageExamined, out var _))
             {
                 lotsOfMessageSequence = lotsOfMessageSequence.Slice(lotsOfMessageConsumed);
             }
