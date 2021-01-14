@@ -20,12 +20,11 @@
     <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Primitives" Version="5.0.0" />
     <!-- Forcing transitive to 5.0.0-->
-
-    <PackageReference Include="Bedrock.Framework" Version="*-*" />
-    <PackageReference Include="Bedrock.Framework.Experimental" Version="*-*" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Bedrock.Framework.Experimental\Bedrock.Framework.Experimental.csproj" />
+    <ProjectReference Include="..\Bedrock.Framework\Bedrock.Framework.csproj" />
     <ProjectReference Include="..\TerminalGame.RelayServer.Domain\TerminalGame.RelayServer.Domain.csproj" />
   </ItemGroup>
 
